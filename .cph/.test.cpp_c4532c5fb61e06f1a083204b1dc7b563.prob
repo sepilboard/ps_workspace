@@ -1,0 +1,1 @@
+{"name":"Local: test","url":"c:\\Users\\user\\workspace\\vscode\\ps_workspace\\test.cpp","tests":[{"id":1790847613010,"input":"","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\user\\workspace\\vscode\\ps_workspace\\test.cpp","group":"local","local":true}

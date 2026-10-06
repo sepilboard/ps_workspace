@@ -1,0 +1,42 @@
+{
+  "for loop 0 to N-1": {
+    "scope": "cpp",
+    "prefix": "for0N",
+    "body": [
+      "for(int i = 0; i<N; i++){",
+      "    ",
+      "}"
+    ],
+    "description": "C++ competitive programming template"
+  },
+
+  "for loop 1 to N": {
+    "scope": "cpp",
+    "prefix": "for1N",
+    "body": [
+      "for(int i = 1; i<=N; i++){",
+      "    ",
+      "}"
+    ],
+    "description": "C++ competitive programming template"
+  },
+
+  "search delta": {
+    "scope": "cpp",
+    "prefix": "search_delta",
+    "body": [
+      "int dx[8] = {0, 0, 1, -1, -1, -1, 1, 1}",
+      "int dy[8] = {1, -1, 0, 0, -1, 1, -1, 1}"
+    ],
+    "description": "C++ competitive programming template"
+  },
+
+  "min priority queue": {
+    "scope": "cpp",
+    "prefix": "min_pq",
+    "body": [
+      "priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;",
+    ],
+    "description": "C++ competitive programming template"
+  },
+}

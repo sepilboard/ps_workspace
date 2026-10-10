@@ -9,6 +9,7 @@ void solve()
     cin >> n;
     
     vector<ll> a(n+1);
+    vector<vector<int>> oprime(n+1);
     map<ll, int> ccnt;
     for(int i = 1; i<=n; i++){
         cin >> a[i];
@@ -21,26 +22,33 @@ void solve()
                 a[i] /= j;
             }
             if(cnt&1){
-                a[i] *= j;
+                oprime[i].push_back(j);
             }
         }
+        if(a[i] != 1){
+            oprime[i].push_back(a[i]);
+            a[i] = 1;
+        }
+        for(int op: oprime[i]){
+            a[i] *= op;
+        }
+        
         ccnt[a[i]]+=1;
     }
 
     vector<ll> pref(n+1, 1);
     for(int i = 1; i<=n; i++){
         pref[i] = pref[i-1]*a[i];
-        
-        ll mx = pref[i];
-        for(ll j = 2; j*j<=mx; j++){
-            if(pref[i]%j) continue;
+
+        for(int op: oprime[i]){
+            if(pref[i]%op) continue;
             int cnt = 0;
-            while(!(pref[i]%j)){
+            while(!(pref[i]%op)){
                 cnt++;
-                pref[i] /= j;
+                pref[i] /= op;
             }
             if(cnt&1){
-                pref[i] *= j;
+                pref[i] *= op;
             }
         }
     }

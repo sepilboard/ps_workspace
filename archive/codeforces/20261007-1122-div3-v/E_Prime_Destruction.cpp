@@ -4,39 +4,41 @@ using namespace std;
 typedef long long ll;
 
 vector<char> is_p;
-ll psum[200'005];
+vector<int> bpf;
 
 void solve()
 {
     int n, k;
     cin >> n >> k;
     
-    vector<int> A(n);
+    vector<int> a(n);
     for(int i = 0; i<n; i++){
-        cin >> A[i];
+        cin >> a[i];
     }
+
+    vector<ll> dp(n+1, -1);
+    auto go = [&](auto&& self, int cur) -> ll {
+        ll& ret = dp[cur];
+        if(ret != -1)  return ret;
+
+        if(cur<=k){
+            return ret = 0;
+        }
+
+        ret = numeric_limits<ll>::max();
+        int x = cur;
+        while(x != 1){
+            int p = bpf[x];
+            ret = min(ret, 1 + self(self, cur/p)*p);
+            while(x%p == 0) x /= p;
+        }
+        return ret;
+    };
 
     ll ans = 0;
-    for(int a: A){
-        int x = 1e+9;
-        for(int i = 1; i*i<=a; i++){
-            if(a%i) continue;
-            if(i<=k) x = min(x, a/i);
-            if(a/i<=k) x = min(x, i);
-        }
-
-        for(int i = 2; i<=200'000; i++){
-            if(!is_p[i]) continue;
-            int idx = 1;
-            while(x%i){
-                idx *= i;
-                x /= i;
-            }
-            ans += psum[idx];
-            cout << idx << "\n";
-        }
+    for(int i = 0; i<n; i++){
+        ans += go(go, a[i]);
     }
-
     cout << ans << "\n";
 }
 
@@ -44,14 +46,15 @@ signed main()
 {
     FASTIO;
 
-    psum[1] = 0;
     is_p.resize(200'001, true);
     is_p[1] = false;
+    bpf.resize(200'001, 1);
     for(ll i = 2; i<=200'000; i++){
         if(!is_p[i]) continue;
-        psum[i] = 1;
-        for(ll j = i*i; j<=200'000; j++){
-            psum[j] = psum[j/i] + j/i;
+        bpf[i] = i;
+        for(ll j = i*i; j<=200'000; j+=i){
+            is_p[j] = false;
+            bpf[j] = i;
         }
     }
 

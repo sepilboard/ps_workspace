@@ -10,28 +10,32 @@ void solve()
 
     vector<int> a(n);
     
+    int mx = x;
     for(int i = 0; i<n; i++){
         cin >> a[i];
+        mx = max(mx, a[i]);
     }
-    
-    map<int, ll> cnt;
-    for(int j = 1; j*j<=300'000; j++){
-        for(int i = 0; i<n; i++){
-            if(a[i]%j) continue;
-    
-            cnt[j] += a[i];
-            if(j*j>300'000)
-            cnt[a[i]/j] += j;
+
+    ll ans = 0;
+    for(int g = 1; g*g<=mx; g++){
+        if(g != 1 && x%g == 0){
+            ll cnt = 0;
+            for(int i = 0; i<n; i++){
+                if(a[i]%g) continue;
+                cnt += a[i];
+            }
+            ans = max(ans, cnt);
+        }
+        if(mx/g != 1 && x%(mx/g) == 0){
+            ll cnt = 0;
+            for(int i = 0; i<n; i++){
+                if(a[i]%(mx/g)) continue;
+                cnt += a[i];
+            }
+            ans = max(ans, cnt);
         }
     }
-
-    ll ans = 0LL;
-    for(int j = 1; j*j<=300'000; j++){
-        if(x%j) continue;
-        if(j != 1) ans = max(ans, cnt[j]);
-        if(x/j != 1) ans = max(ans, cnt[x/j]);
-    }
-
+    
     cout << ans << "\n";
 }
 

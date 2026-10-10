@@ -16,7 +16,19 @@ int func(int x)
 int main() {
     char c[5] = {'2', '3'};
     
-    __write(cout.rdbuf(), c, 2);
+    // vector<int> a = {0, 0, 0, 1, 1, 2, 3, 4, 5};
+    vector<int> a = {0, 0, 0, 1, 1, 1, 0, 1, 0};
+    string b = "000111010";
+    a.erase(unique(a.begin(), a.end()), a.end());
+    b.erase(unique(b.begin(), b.end()), b.end());
+
+    // for(int e: a){
+    //     cout << e << " ";
+    // }
+    cout << b;
+
+    sort(a.begin(), a.end(), [](int a, int b){return true;});
+    
 
     return 0;
 }

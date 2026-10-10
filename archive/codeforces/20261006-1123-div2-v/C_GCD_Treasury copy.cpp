@@ -9,33 +9,30 @@ void solve()
     cin >> n >> x;
 
     vector<int> a(n);
-    vector<ll> cnt(300'001, 0);
     
     for(int i = 0; i<n; i++){
         cin >> a[i];
-        cnt[a[i]]++;
     }
-
-    vector<char> vst(300'001, false);
-    for(int i = 0; i<n; i++){
-        int g = __gcd(a[i], x);
-        if(vst[g]) continue;
-        vst[g] = true;
-
-        for(int j = 2*g; j<=300'000; j+=g){
-            cnt[g] += cnt[j]*(j/g);
+    
+    map<int, ll> cnt;
+    for(int j = 1; j*j<=300'000; j++){
+        for(int i = 0; i<n; i++){
+            if(a[i]%j) continue;
+    
+            cnt[j] += a[i];
+            if(j*j>300'000)
+            cnt[a[i]/j] += j;
         }
     }
 
     ll ans = 0LL;
-    for(int i = 0; i<n; i++){
-        int g =__gcd(a[i], x);
-        ans = max(ans, cnt[g] * a[i]);
+    for(int j = 1; j*j<=300'000; j++){
+        if(x%j) continue;
+        if(j != 1) ans = max(ans, cnt[j]);
+        if(x/j != 1) ans = max(ans, cnt[x/j]);
     }
-    cout << ans << "\n";
 
-    for(int i = 1; i<=9; i++) cout << cnt[i] << " ";
-    
+    cout << ans << "\n";
 }
 
 signed main()

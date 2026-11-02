@@ -10,14 +10,12 @@ void solve()
 
     vector<int> a(n);
     
-    int mx = x;
     for(int i = 0; i<n; i++){
         cin >> a[i];
-        mx = max(mx, a[i]);
     }
 
     ll ans = 0;
-    for(int g = 1; g*g<=mx; g++){
+    for(ll g = 1; g*g<=x; g++){
         if(g != 1 && x%g == 0){
             ll cnt = 0;
             for(int i = 0; i<n; i++){
@@ -26,10 +24,10 @@ void solve()
             }
             ans = max(ans, cnt);
         }
-        if(mx/g != 1 && x%(mx/g) == 0){
+        if(x/g != 1 && x%(x/g) == 0){
             ll cnt = 0;
             for(int i = 0; i<n; i++){
-                if(a[i]%(mx/g)) continue;
+                if(a[i]%(x/g)) continue;
                 cnt += a[i];
             }
             ans = max(ans, cnt);
